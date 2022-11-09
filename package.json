@@ -1,0 +1,24 @@
+{
+  "name": "todo-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jelewe/todo-app.git"
+  },
+  "author": "Jessie Weaver",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jelewe/todo-app/issues"
+  },
+  "homepage": "https://github.com/jelewe/todo-app#readme",
+  "devDependencies": {
+    "date-fns": "^2.29.3",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0"
+  }
+}
