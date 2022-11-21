@@ -283,7 +283,7 @@ const controller = (() => {
         img.onclick = (e) => {
             let list = JSON.parse(localStorage.getItem('allTasks'));
             list = list.customProjects
-            if (list == null) {
+            if (list.length == 0) {
                 let div = document.createElement('div');
                 div.classList.add('projectAddPopup');
                 div.innerText= "Create a Project first";
@@ -324,26 +324,31 @@ const controller = (() => {
 
     const pageLoad = () => {
         let taskStorage = JSON.parse(localStorage.getItem('allTasks'));
-        let projectStorage = taskStorage.customProjects 
-        taskStorage = taskStorage.tasks
         if (taskStorage == null) {
             return
         } else {
-            for (let i = 0; i< taskStorage.length; i++) {
-                dataModel.allTasks.tasks.push(taskStorage[i]) 
+            taskStorage = taskStorage.tasks
+            if (taskStorage == null) {
+                return
+            } else {
+                for (let i = 0; i< taskStorage.length; i++) {
+                    dataModel.allTasks.tasks.push(taskStorage[i]) 
+                };
+                DOM.displayDefaultList();
+
             };
-            DOM.displayDefaultList();
-        };
-        if (projectStorage == null) {
-            return
-        } else {
-            for (let i = 0; i< projectStorage.length; i++) { 
-                dataModel.allTasks.customProjects.push(projectStorage[i])
-            };
+            let projectStorage = taskStorage.customProjects
+            if (projectStorage == null) {
+                return
+            } else {
+                for (let i = 0; i< projectStorage.length; i++) { 
+                    dataModel.allTasks.customProjects.push(projectStorage[i])
+                };
             DOM.displayStoredProjects();
+            };
+            localStorage.removeItem('allTasks');
+            localStorage.setItem('allTasks', JSON.stringify(dataModel.allTasks));
         };
-        localStorage.removeItem('allTasks');
-        localStorage.setItem('allTasks', JSON.stringify(dataModel.allTasks));
     };
 
     return {
