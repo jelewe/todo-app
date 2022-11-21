@@ -21,26 +21,95 @@ body {
     grid-area: 2 / 1 / 3 / 2;
     background: antiquewhite;
     text-align: center;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+#sidebar button {
+    height: 2.5rem;
+    width: 5rem;
+    align-self: center;
+    justify-self: center;
+}
+
+.formList {
+    flex-grow: 1;
+    visibility: hidden;
+    position: absolute;
+    background: antiquewhite;
+
+    height: 20rem;
+}
+
+.projectContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.projectContainer:hover {
+    cursor: pointer;
+    background: peachpuff;
+    font-weight: 700;
+    transition: 0.07ms;
+}
+
+.projectsDiv .project {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.projectsDiv .project:hover {
+    cursor: pointer;
+    background: peachpuff;
+    font-weight: 700;
+    transition: 0.07ms;
+}
+
+.newProject:Hover {
+    cursor: pointer;
+    background: peachpuff;
+}
+
+ .projectList {
+    visibility: hidden;
+}
+
+#sidebar li {
+    list-style: none;
 }
 
 #main {
     grid-area: 2 / 2 / 3 / 3;
     background: seashell;
     display: grid;
-    grid-auto-flow: row;
-    padding: 1rem;
-    gap: 1rem;
-
-}
-
-.formList {
-    visibility: hidden;
+    grid-auto-flow: column;
     padding: 1rem;
 }
 
 .divCard {
+    display: flex;
+    justify-content: space-between;
     background: whitesmoke;
     border: 1px solid black;
-    height: 7rem;
+    height: 6rem;
+    width: 10rem;
+    position: relative;
+}
+
+.divCard img {
+    height: 20px;
+    width: 20px;
+    justify-self: flex-end;
+    align-self: flex-end;
+}
+
+.projectAddPopup {
+    background: whitesmoke;
+    flex-grow: 1;
+    position:absolute;
+    height: 6rem;
     width: 10rem;
 }
