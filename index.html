@@ -32,8 +32,41 @@
                     </select>
                 </form>
                 <button class="submitTaskBtn">Submit</button>
+                <button class="cancelTaskBtn">Cancel</button>
             </div>
-
+            <h3>Projects</h3>
+            <div class="projectsDiv">
+                <div class="project" project-type="allTasks">
+                    All Tasks 
+                    
+                </div>
+                <div class="project" project-type="thisWeek">
+                    This Week 
+                    
+                </div>
+                <div class="project"  project-type="thisMonth">
+                    This Month
+                    
+                </div>
+                <div class="project" project-type="priorityLevel">
+                    Priority
+                    
+                </div>
+            </div>
+            <div class="newProject"><img src="../src/imgs/plus.svg" height="20" width="20"> 
+                Create new Project
+            </div>
+            <div class="projectList">
+                <form action="" id="projectForm">
+                    <input type="text" id="projectName" name="projectName" placeholder="Enter Project Name" required>
+                </form>
+                <button class="save">
+                    Save
+                </button>
+                <button class="cancel">
+                    Cancel
+                </button>
+            </div>
         </div>
         <div id="main">
 
