@@ -105,10 +105,15 @@ const DOM = (() => {
         while(mainDiv.firstChild) {
             mainDiv.removeChild(mainDiv.firstChild)
         };
+        let nameDisplay = document.getElementById('projectNameDisplay');
+        nameDisplay.innerText = ""
         let list = listedProject.getAttribute('project-type');
+        console.log(list)
         if (list == "allTasks") {
+            nameDisplay.innerText = "All Tasks";
             displayDefaultList()
         } else if (list == "thisWeek") {
+            nameDisplay.innerText = "This Week";
             let tasksObj = JSON.parse(localStorage.getItem('allTasks'));
             if (tasksObj == null) {
                 return
@@ -122,6 +127,7 @@ const DOM = (() => {
                 }
             }
         } else if (list == "thisMonth") {
+            nameDisplay.innerText = "This Month";
             let tasksObj = JSON.parse(localStorage.getItem('allTasks'));
             if (tasksObj == null) {
                 return
@@ -135,6 +141,7 @@ const DOM = (() => {
                     }
                 }
             } else if (list == "priorityLevel") {
+                nameDisplay.innerText = "High Priority";
                 let tasksObj = JSON.parse(localStorage.getItem('allTasks'));
                 if (tasksObj == null) {
                     return
@@ -146,6 +153,7 @@ const DOM = (() => {
                     }
                 }
             } else {
+                nameDisplay.innerText = list;
                 let t = JSON.parse(localStorage.getItem('allTasks'));
                 for (let i = 0; i< t.tasks.length; i++) {
                     if (t.tasks[i].list == list) {
@@ -327,17 +335,27 @@ const controller = (() => {
         if (taskStorage == null) {
             return
         } else {
-            taskStorage = taskStorage.tasks
-            if (taskStorage == null) {
-                return
-            } else {
-                for (let i = 0; i< taskStorage.length; i++) {
-                    dataModel.allTasks.tasks.push(taskStorage[i]) 
-                };
-                DOM.displayDefaultList();
+            getTasks(taskStorage);
+            getProjects(taskStorage);
+            localStorage.removeItem('allTasks');
+            localStorage.setItem('allTasks', JSON.stringify(dataModel.allTasks));
+        };
+    };
 
+    const getTasks = (taskStorage) => {
+        taskStorage = taskStorage.tasks
+        if (taskStorage == null) {
+            return
+        } else {
+            for (let i = 0; i< taskStorage.length; i++) {
+                dataModel.allTasks.tasks.push(taskStorage[i]) 
             };
-            let projectStorage = taskStorage.customProjects
+            DOM.displayDefaultList();
+        };
+    };
+
+    const getProjects = (taskStorage) => {
+        let projectStorage = taskStorage.customProjects
             if (projectStorage == null) {
                 return
             } else {
@@ -345,9 +363,6 @@ const controller = (() => {
                     dataModel.allTasks.customProjects.push(projectStorage[i])
                 };
             DOM.displayStoredProjects();
-            };
-            localStorage.removeItem('allTasks');
-            localStorage.setItem('allTasks', JSON.stringify(dataModel.allTasks));
         };
     };
 
