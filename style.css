@@ -2,18 +2,49 @@ body {
     height: 100vh;
     min-width: 100vw;
     margin: 0;
+    font-family: 'Manrope', sans-serif;
 }
+
+button {
+    font-family: 'Manrope', sans-serif;
+}
+
+
+
+
 
 #content {
     height: 100%;
     display: grid;
-    grid-template-rows: 1fr 5fr;
+    grid-template-rows: 0.5fr 5fr;
     grid-template-columns: 1fr 3fr;
 }
 
 #header {
     grid-area: 1 / 1 / 2 / 3;
     background: peachpuff;
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+}
+
+#logo {
+    display: flex;
+    padding-left: 1rem;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+}
+
+h1 {
+    margin: 0;
+}
+
+#projectNameDisplay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.2rem;
+    font-weight: bold;
 }
 
 #sidebar {
@@ -26,11 +57,16 @@ body {
     flex-direction: column;
 }
 
-#sidebar button {
-    height: 2.5rem;
-    width: 5rem;
-    align-self: center;
-    justify-self: center;
+#sidebar .createTask {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#sidebar .createTask:hover {
+    cursor: pointer;
+    background: peachpuff;
+    font-weight: 700;
+    transition: 0.07ms;
 }
 
 .formList {
@@ -42,17 +78,11 @@ body {
     height: 20rem;
 }
 
-.projectContainer {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+h3 {
+    margin-bottom: 0;
 }
-
-.projectContainer:hover {
-    cursor: pointer;
-    background: peachpuff;
-    font-weight: 700;
-    transition: 0.07ms;
+.projectsDiv {
+    margin-bottom: 1rem;
 }
 
 .projectsDiv .project {
@@ -68,9 +98,16 @@ body {
     transition: 0.07ms;
 }
 
+.newProject {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 .newProject:Hover {
     cursor: pointer;
     background: peachpuff;
+    font-weight: 700;
+    transition: 0.07ms;
 }
 
  .projectList {
@@ -84,8 +121,8 @@ body {
 #main {
     grid-area: 2 / 2 / 3 / 3;
     background: seashell;
-    display: grid;
-    grid-auto-flow: column;
+    display: flex;
+    flex-direction: column;
     padding: 1rem;
 }
 
@@ -94,8 +131,10 @@ body {
     justify-content: space-between;
     background: whitesmoke;
     border: 1px solid black;
+    border-radius: 4px;
     height: 6rem;
-    width: 10rem;
+    padding: 0.2rem;
+    margin-bottom: 1rem;
     position: relative;
 }
 
