@@ -24,7 +24,7 @@
         </div>
         <div id="sidebar">
             <div class="createTask">
-                <img src="../src/imgs/plus.svg" height="20" width="20"> 
+                <img src="imgs/plus.svg" alt="add" height="20" width="20"> 
                 Create Task</div>
             <div class="formList">
                 <form action="" id="form">
@@ -34,14 +34,18 @@
                     <input type="text" id="notes" name="notes" placeholder="Anything to note?" required>
                     <label for="dueDate">Due</label>
                     <input type="date" id="dueDate" name="dueDate" required>
-                    <select id="priority" required>
-                        <optgroup label="Priority Level">
-                        <option value="low">Low</option>
-                        <option value="medium">Medium</option>
-                        <option value="high">High</option>
-                        </optgroup>
-                    </select>
+                    <div class="form-row">
+
+                        <select id="priority" required>
+                            <optgroup label="Priority Level">
+                            <option value="Low">Low</option>
+                            <option value="Medium">Medium</option>
+                            <option value="High">High</option>
+                            </optgroup>
+                        </select>
+                    </div>
                 </form>
+                <br />
                 <button class="submitTaskBtn">Submit</button>
                 <button class="cancelTaskBtn">Cancel</button>
             </div>
@@ -65,7 +69,7 @@
                     
                 </div>
             </div>
-            <div class="newProject"><img src="../src/imgs/plus.svg" height="20" width="20"> 
+            <div class="newProject"><img src="imgs/plus.svg" alt ="add" height="20" width="20"> 
                 Create new Project
             </div>
             <div class="projectList">
