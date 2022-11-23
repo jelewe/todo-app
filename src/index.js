@@ -14,7 +14,7 @@ cancelTaskBtn.addEventListener('click', DOM.cancelTask);
 
 let listedProjects = document.querySelectorAll('.project');
 for(let i =0; i < listedProjects.length; i++) {
-    listedProjects[i].addEventListener('click', () => { DOM.displaySelectedProject(listedProjects[i]) })
+    listedProjects[i].addEventListener('mouseup', () => { DOM.displaySelectedProject(listedProjects[i]) })
 };
 
 let projectTrashIcon = document.querySelectorAll('.projectTrash');

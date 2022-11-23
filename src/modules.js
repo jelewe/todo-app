@@ -37,31 +37,36 @@ const DOM = (() => {
         let displayArea = document.getElementById('main');
         let div = document.createElement('div');
         div.classList.add("divCard");
-        div.setAttribute('data-index', dataModel.allTasks.tasks.indexOf(task));
+        div.setAttribute('data-index', task.index);
         if (task.strike == "none") {
             div.style.textDecorationLine = "none";
         } else {
             div.style.textDecorationLine = "line-through"
         };
         div.innerText= `${task.title}
-        ${task.notes}
-        ${task.dueDate}
-        ${task.priority}`;
+        Note: ${task.notes}
+        Due by ${task.dueDate}
+        ${task.priority} priority`;
         let img = document.createElement('img');
         img.classList.add('trash');
-        img.src="../src/imgs/trash.svg";
+        img.src="imgs/trash.svg";
         div.appendChild(img);
         controller.createTrashEventHandler(img);
         img = document.createElement('img');
         img.classList.add('check');
-        img.src="../src/imgs/check.svg";
+        img.src="imgs/check.svg";
         div.appendChild(img);
         controller.createTextStrike(img);
         img = document.createElement('img');
         img.classList.add('plus');
-        img.src="../src/imgs/plus.svg";
+        img.src="imgs/plus.svg";
         div.appendChild(img);
         controller.createAddToProject(img);
+        img = document.createElement('img');
+        img.classList.add('edit');
+        img.src="imgs/pencil.svg";
+        div.appendChild(img);
+        controller.editTask(img);
         displayArea.appendChild(div);
     };
 
@@ -96,6 +101,12 @@ const DOM = (() => {
         childDiv.classList.add('project');
         childDiv.setAttribute('project-type', project.name);
         childDiv.innerText= project.name;
+        let img = document.createElement('img');
+        img.classList.add('projectTrash');
+        img.src="imgs/trash.svg";
+        childDiv.append(img);
+        img.addEventListener('click' , () => deleteProject(img));
+        childDiv.addEventListener('click', () => displaySelectedProject(childDiv));
         parentDiv.appendChild(childDiv);
         cancelProjectCreation();
     };
@@ -108,7 +119,6 @@ const DOM = (() => {
         let nameDisplay = document.getElementById('projectNameDisplay');
         nameDisplay.innerText = ""
         let list = listedProject.getAttribute('project-type');
-        console.log(list)
         if (list == "allTasks") {
             nameDisplay.innerText = "All Tasks";
             displayDefaultList()
@@ -164,8 +174,28 @@ const DOM = (() => {
         };
 
         const deleteProject = (projectTrashIcon) => {
-            console.log(projectTrashIcon.parentElement)
-
+            let projName = projectTrashIcon.parentElement.getAttribute('project-type');
+            let projList = dataModel.allTasks.customProjects;
+            let nameDisplay = document.getElementById('projectNameDisplay');
+            nameDisplay.innerText = "All Tasks";
+            let child = projectTrashIcon.parentElement;
+            child.remove();
+            for(let i = 0; i < projList.length; i++) {
+                if (projList[i].name == projName) {
+                    projList.splice(i, 1)
+                }
+            };
+            let taskList = dataModel.allTasks.tasks;
+            for (let i =0; i < taskList.length; i++) {
+                if (taskList[i].list == projName) {
+                    taskList.splice(i, 1)
+                }
+                controller.updateTaskIndex();
+            };
+            JSON.parse(localStorage.getItem('allTasks'));
+            localStorage.removeItem('allTasks')
+            localStorage.setItem('allTasks', JSON.stringify(dataModel.allTasks));
+            displayDefaultList();
         }
 
 
@@ -188,13 +218,15 @@ const controller = (() => {
 
     //task-based functions*************************************
     const storeTaskForm = () => {
+        let index = dataModel.allTasks.tasks.length;
         let task = {
         "title": document.getElementById('title').value,
         "notes": document.getElementById('notes').value,
         "dueDate": document.getElementById('dueDate').value,
         "priority": document.getElementById('priority').value,
         "strike": "none",
-        "list": "none"
+        "list": "none",
+        "index": index
         };
         addTaskToStorage(task);
         DOM.displayTask(task);
@@ -212,12 +244,24 @@ const controller = (() => {
             let main = document.querySelector('#main');
             main.removeChild(img.parentElement);
             dataModel.allTasks.tasks.splice(index, 1);
-            localStorage.setItem('allTasks', JSON.stringify(dataModel.allTasks))
-            let cards = document.querySelectorAll('.divCard');
-            Array.from(cards).forEach(function (c) {
-                c.setAttribute("data-index", Array.from(cards).indexOf(c));
-            });
+            updateTaskIndex();
+            updateCardIndex();
         };
+    };
+
+    const updateTaskIndex = () => {
+        let t = dataModel.allTasks.tasks
+        for(let i = 0; i < t.length; i++) {
+            t[i].index = i
+        };
+        localStorage.setItem('allTasks', JSON.stringify(dataModel.allTasks))
+    };
+
+    const updateCardIndex = () => {
+        let cards = document.querySelectorAll('.divCard');
+        Array.from(cards).forEach(function (c) {
+            c.setAttribute("data-index", Array.from(cards).indexOf(c));
+        });
     };
 
     const createTextStrike = (img) => {
@@ -232,6 +276,7 @@ const controller = (() => {
                 card.style.textDecorationLine = "none";
                 o.strike = "none"
             };
+
             localStorage.setItem('allTasks', JSON.stringify(dataModel.allTasks))
         };
     };
@@ -253,6 +298,23 @@ const controller = (() => {
                 parent.removeChild(currentDiv)
             };
         };
+
+        const editTask =(img) => {
+            img.onclick = (e) => {
+                console.log(img.parentElement);
+                let index = img.parentElement.getAttribute('data-index');
+                DOM.createTask();
+                document.getElementById('title').value = dataModel.allTasks.tasks[index].title;
+                document.getElementById('notes').value = dataModel.allTasks.tasks[index].notes;
+                document.getElementById('dueDate').value = dataModel.allTasks.tasks[index].dueDate;
+                document.getElementById('priority').value = dataModel.allTasks.tasks[index].priority;
+                let main = document.querySelector('#main');
+                main.removeChild(img.parentElement);
+                dataModel.allTasks.tasks.splice(index, 1);
+                updateTaskIndex();
+                updateCardIndex();
+            }
+        }
     
         const cancelTaskToProjectHandler = (buttonC) => {
             buttonC.onclick = (e) => {
@@ -272,17 +334,14 @@ const controller = (() => {
         DOM.addProjectToList(project);
     };
 
-
-//this needs to be reworked or removed to eliminate projectListObj -- should be fixed, this code might eb able to be consolidated???? looks redundant
     const addProjectToStorage = (project) => {
         let list = JSON.parse(localStorage.getItem('allTasks')); 
-        list = list.customProjects;
         if ( list == null) {
             dataModel.allTasks.customProjects.push(project);
             localStorage.setItem('allTasks', JSON.stringify(dataModel.allTasks))
         } else {
             dataModel.allTasks.customProjects.push(project);
-            localStorage.removeItem('allTasks');
+            //localStorage.removeItem('allTasks');
             localStorage.setItem('allTasks', JSON.stringify(dataModel.allTasks));
         };
     };
@@ -294,7 +353,9 @@ const controller = (() => {
             if (list.length == 0) {
                 let div = document.createElement('div');
                 div.classList.add('projectAddPopup');
-                div.innerText= "Create a Project first";
+                div.innerText= `Create a Project first
+                
+                `;
                 img.parentElement.appendChild(div);
                 let buttonC = document.createElement('button');
                 buttonC.classList.add('.cancelTaskToProjectBtn');
@@ -305,6 +366,7 @@ const controller = (() => {
                 let div = document.createElement('div');
                 div.classList.add('projectAddPopup');
                 div.innerText=`Select a project to add this task to:
+
                 `;
                 img.parentElement.appendChild(div);
                 let sel = document.createElement("select")
@@ -371,6 +433,8 @@ const controller = (() => {
         saveNewProject,
         createTrashEventHandler,
         createTextStrike,
+        editTask,
+        updateTaskIndex,
         createAddToProject,
         pageLoad
     }
