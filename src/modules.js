@@ -105,7 +105,7 @@ const DOM = (() => {
         img.classList.add('projectTrash');
         img.src="imgs/trash.svg";
         childDiv.append(img);
-        img.addEventListener('click' , () => deleteProject(img));
+        img.addEventListener('click' , (e) => deleteProject(e, img));
         childDiv.addEventListener('click', () => displaySelectedProject(childDiv));
         parentDiv.appendChild(childDiv);
         cancelProjectCreation();
@@ -173,13 +173,18 @@ const DOM = (() => {
             }
         };
 
-        const deleteProject = (projectTrashIcon) => {
+        const deleteProject = (e, projectTrashIcon) => {
+            e.stopImmediatePropagation();
             let projName = projectTrashIcon.parentElement.getAttribute('project-type');
             let projList = dataModel.allTasks.customProjects;
             let nameDisplay = document.getElementById('projectNameDisplay');
             nameDisplay.innerText = "All Tasks";
             let child = projectTrashIcon.parentElement;
             child.remove();
+            let mainDiv = document.getElementById('main');
+            while(mainDiv.firstChild) {
+                mainDiv.removeChild(mainDiv.firstChild)
+            };
             for(let i = 0; i < projList.length; i++) {
                 if (projList[i].name == projName) {
                     projList.splice(i, 1)
@@ -301,7 +306,6 @@ const controller = (() => {
 
         const editTask =(img) => {
             img.onclick = (e) => {
-                console.log(img.parentElement);
                 let index = img.parentElement.getAttribute('data-index');
                 DOM.createTask();
                 document.getElementById('title').value = dataModel.allTasks.tasks[index].title;

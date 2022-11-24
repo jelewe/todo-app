@@ -19,7 +19,7 @@ for(let i =0; i < listedProjects.length; i++) {
 
 let projectTrashIcon = document.querySelectorAll('.projectTrash');
 for(let i=0; i < projectTrashIcon.length; i++) {
-    projectTrashIcon[i].addEventListener('click', () => { DOM.deleteProject(projectTrashIcon[i]) })
+    projectTrashIcon[i].addEventListener('click', (e) => { DOM.deleteProject(e, projectTrashIcon[i]) })
 
 }
 
