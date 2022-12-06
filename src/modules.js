@@ -34,11 +34,11 @@ const DOM = (() => {
     };
 
     const displayTask = (task) => {
-        let displayArea = document.getElementById('main');
-        let div = document.createElement('div');
-        div.classList.add("divCard");
-        div.setAttribute('data-index', task.index);
-        if (task.strike == "none") {
+        let displayArea = document.getElementById('main')
+        let div = document.createElement('div')
+        div.classList.add("divCard")
+        div.setAttribute('data-index', task.index)
+        if (task.strike === 'none') {
             div.style.textDecorationLine = "none";
         } else {
             div.style.textDecorationLine = "line-through"
@@ -54,7 +54,7 @@ const DOM = (() => {
         controller.createTrashEventHandler(img);
         img = document.createElement('img');
         img.classList.add('check');
-        img.src="imgs/check.svg";
+        img.src = "imgs/check.svg";
         div.appendChild(img);
         controller.createTextStrike(img);
         img = document.createElement('img');
@@ -150,22 +150,22 @@ const DOM = (() => {
                         }
                     }
                 }
-            } else if (list == "priorityLevel") {
-                nameDisplay.innerText = "High Priority";
-                let tasksObj = JSON.parse(localStorage.getItem('allTasks'));
-                if (tasksObj == null) {
+            } else if (list === 'priorityLevel') {
+                nameDisplay.innerText = 'High Priority'
+                let tasksObj = JSON.parse(localStorage.getItem('allTasks'))
+                if (tasksObj.tasks == null) {
                     return
                 } else {
-                    for (let i = 0; i< tasksObj.tasks.length; i++) {
-                        if (tasksObj.tasks[i].priority == "high") {
+                    for (let i = 0; i < tasksObj.tasks.length; i++) {
+                        if (tasksObj.tasks[i].priority === 'High') {
                             displayTask(tasksObj.tasks[i])
                         }
                     }
                 }
             } else {
                 nameDisplay.innerText = list;
-                let t = JSON.parse(localStorage.getItem('allTasks'));
-                for (let i = 0; i< t.tasks.length; i++) {
+                let t = JSON.parse(localStorage.getItem('allTasks'))
+                for (let i = 0; i < t.tasks.length; i++) {
                     if (t.tasks[i].list == list) {
                             displayTask(t.tasks[i])
                     }
