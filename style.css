@@ -99,21 +99,22 @@ h1 {
     transition: 500ms;
 }
 
+#projectForm {
+    margin-top: 0.2rem;
+}
+
 
 .formList {
     padding-top:3rem;
-
     visibility: hidden;
     position: absolute;
-
+    z-index: 7;
     background: var(--maincolor);
     height: 75%;
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-
-
 }
 
 label {
@@ -121,12 +122,19 @@ label {
 }
 
 input {
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
     background: whitesmoke;
-    border: 1px solid black;
     border-radius: 2px;       
     width: 10rem;
     height: initial;
+    border: 2px var(--secondaccent) solid;
+    border-radius: 10px;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+
+  input:focus {
+    outline: 2px #8298c0 solid;
   }
 
 h3 {
@@ -206,6 +214,41 @@ h3 {
     display: flex;
     flex-direction: column;
     position: relative;
+}
+
+#mainContent button {
+    background-color: var(--secondcolor);
+    border: 3px var(--secondaccent) solid;
+    
+}
+
+#mainContent button:hover {
+    background-color: var(--secondaccent);
+    border: 3px var(--secondcolor) solid;
+}
+
+#mainContent input {
+    background: rgb(255, 252, 250);
+    border: 2px var(--mainaccent) solid;
+    border-radius: 10px;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+#mainContent input:focus{
+    outline:2px rgb(226, 168, 118) solid;
+}
+
+#mainContent select {
+    background: rgb(255, 252, 250);
+    border: 2px var(--mainaccent) solid;
+    border-radius: 10px;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+#mainContent select:focus {
+    outline:2px rgb(226, 168, 118) solid;
 }
 
 .divCard {
