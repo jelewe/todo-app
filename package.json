@@ -18,6 +18,11 @@
   "homepage": "https://github.com/jelewe/todo-app#readme",
   "devDependencies": {
     "date-fns": "^2.29.3",
+    "eslint": "^8.28.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-n": "^15.5.1",
+    "eslint-plugin-promise": "^6.1.1",
     "webpack": "^5.74.0",
     "webpack-cli": "^4.10.0"
   }

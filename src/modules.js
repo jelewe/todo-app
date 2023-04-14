@@ -91,7 +91,7 @@ const DOM = (() => {
 
     const cancelProjectCreation = () => {
         let projectForm = document.querySelector('.projectList');
-        projectForm.style.visibility = "hidden";
+        projectForm.style.visibility = 'hidden';
         document.getElementById('projectForm').reset();
     };
 
