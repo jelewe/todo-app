@@ -1,3 +1,10 @@
+:root {
+    --maincolor: seashell;
+    --mainaccent: peachpuff;
+    --secondcolor: #bfd8d5; 
+    --secondaccent: #b1bed5; 
+}
+
 body {
     height: 100vh;
     min-width: 100vw;
@@ -10,17 +17,18 @@ body {
 
 button {
     font-family: 'Manrope', sans-serif;
-    background: seashell;
+    background: var(--maincolor);
     border-radius: 5px;
-    border: 3px peachpuff solid;
+    border: 3px var(--mainaccent) solid;
     padding-left: 0.75rem;
     padding-right: 0.75rem;
+    margin: 0.5rem;
 }
 
 button:hover {
     cursor: pointer;
-    background:peachpuff;
-    border: 3px seashell solid;
+    background: var(--mainaccent);
+    border: 3px var(--maincolor) solid;
     transition: 0.07ms;
 }
 
@@ -36,9 +44,9 @@ button:hover {
 header {
     grid-area: 1 / 1 / 2 / 3;
     padding-left: 1rem;
-    background: #b1bed5; 
+    background: var(--secondaccent);
     border: 1px black dotted;
-    color: seashell;
+    color: var(--maincolor);
     text-shadow: 1px 1px 2px black;
     display: flex;
     align-items: center;;
@@ -65,7 +73,7 @@ h1 {
 #sidebar {
     padding: 1rem;
     grid-area: 2 / 1 / 3 / 2;
-    background: #bfd8d5; 
+    background: var(--secondcolor);
     text-align: center;
     position: relative;
     display: flex;
@@ -80,7 +88,7 @@ h1 {
 }
  .createTask:hover {
     cursor: pointer;
-    background: peachpuff;
+    background: var(--mainaccent);
     font-weight: 700;
     transition: 0.07ms;
     border-radius: 4px;
@@ -91,13 +99,14 @@ h1 {
     transition: 500ms;
 }
 
+
 .formList {
     padding-top:3rem;
 
     visibility: hidden;
     position: absolute;
 
-    background: seashell;
+    background: var(--maincolor);
     height: 75%;
     width: 100%;
     display: flex;
@@ -122,7 +131,7 @@ input {
 
 h3 {
     margin-bottom: 0;
-    color: seashell;
+    color: var(--maincolor);
     text-shadow: 1px 1px 1px black;
 }
 
@@ -156,7 +165,7 @@ h3 {
 
 .projectsDiv .project:hover {
     cursor: pointer;
-    background: peachpuff;
+    background: var(--mainaccent);
     font-weight: 700;
     transition: 0.07ms;
     border-radius: 4px;
@@ -170,7 +179,7 @@ h3 {
 
 .newProject:Hover {
     cursor: pointer;
-    background: peachpuff;
+    background: var(--mainaccent);
     font-weight: 700;
     transition: 0.07ms;
     border-radius: 4px;
@@ -193,7 +202,7 @@ h3 {
 
 #mainContent {
     grid-area: 2 / 2 / 3 / 3;
-    background: seashell;
+    background: var(--maincolor);
     display: flex;
     flex-direction: column;
     position: relative;
@@ -240,9 +249,9 @@ h3 {
 }
 
 .projectAddPopup {
-    background: whitesmoke;
+    background: rgb(255, 252, 250);
     flex-grow: 1;
-    position:absolute;
+    position:relative;
     height:100%;
     width:100%;
     top: 0;
