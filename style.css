@@ -63,7 +63,7 @@ h1 {
     justify-content: center;
     font-size: 2.2rem;
     font-weight: bold;
-    padding-bottom: 2rem;
+    padding-bottom: 1rem;
     color: #a1b0ca; 
     text-shadow: 1px 1px 1px #212427;;
 }
@@ -173,8 +173,7 @@ h3 {
 
 .projectsDiv .project:hover {
     cursor: pointer;
-    background: var(--mainaccent);
-    font-weight: 700;
+    background: rgb(255, 218, 185, 0.6);
     transition: 0.07ms;
     border-radius: 4px;
 }
@@ -288,7 +287,7 @@ h3 {
     cursor: pointer;
     transform: scale(1.1);
     transform: rotate(360deg);
-    transition:300ms;
+    transition:500ms;
 }
 
 .projectAddPopup {
