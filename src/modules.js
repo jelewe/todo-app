@@ -85,12 +85,18 @@ const DOM = (() => {
   const addNewProject = () => {
     const projectForm = document.querySelector('.projectList')
     projectForm.style.visibility = 'visible'
+    const createProjDiv = document.querySelector('.newProject')
+    createProjDiv.style.backgroundColor = 'peachpuff'
+    createProjDiv.style.fontWeight = '700'
   }
 
   const cancelProjectCreation = () => {
     const projectForm = document.querySelector('.projectList')
     projectForm.style.visibility = 'hidden'
     document.getElementById('projectForm').reset()
+    const createProjDiv = document.querySelector('.newProject')
+    createProjDiv.style.backgroundColor = ''
+    createProjDiv.style.fontWeight = ''
   }
 
   const addProjectToList = (project) => {
@@ -109,18 +115,34 @@ const DOM = (() => {
     cancelProjectCreation()
   }
 
+  const highlightSelectedProj = (list) => {
+    const projDivs = document.getElementsByClassName('project')
+    for (let i = 0; i < projDivs.length; i++) {
+      const projAttr = projDivs[i].getAttribute('project-type')
+      if (projAttr === list) {
+        projDivs[i].style.backgroundColor = 'peachpuff'
+        projDivs[i].style.fontWeight = '700'
+      } else {
+        projDivs[i].style.backgroundColor = ''
+        projDivs[i].style.fontWeight = ''
+      }
+    }
+  }
+
   const displaySelectedProject = (listedProject) => {
+    // remove tasks from mainContent area
     const mainDiv = document.getElementById('main')
     while (mainDiv.firstChild) {
       mainDiv.removeChild(mainDiv.firstChild)
     };
     const nameDisplay = document.getElementById('projectNameDisplay')
-    nameDisplay.innerText = ''
     const list = listedProject.getAttribute('project-type')
-    if (list == 'allTasks') {
+    highlightSelectedProj(list)
+    // then display tasks froom selected project and update nameDisplay
+    if (list === 'allTasks') {
       nameDisplay.innerText = 'All Tasks'
       displayDefaultList()
-    } else if (list == 'thisWeek') {
+    } else if (list === 'thisWeek') {
       nameDisplay.innerText = 'This Week'
       const tasksObj = JSON.parse(localStorage.getItem('allTasks'))
       if (tasksObj == null) {
@@ -134,7 +156,7 @@ const DOM = (() => {
           }
         }
       }
-    } else if (list == 'thisMonth') {
+    } else if (list === 'thisMonth') {
       nameDisplay.innerText = 'This Month'
       const tasksObj = JSON.parse(localStorage.getItem('allTasks'))
       if (tasksObj == null) {
@@ -164,7 +186,7 @@ const DOM = (() => {
       nameDisplay.innerText = list
       const t = JSON.parse(localStorage.getItem('allTasks'))
       for (let i = 0; i < t.tasks.length; i++) {
-        if (t.tasks[i].list == list) {
+        if (t.tasks[i].list === list) {
           displayTask(t.tasks[i])
         }
       }
@@ -207,6 +229,7 @@ const DOM = (() => {
     cancelTask,
     displayTask,
     displayDefaultList,
+    highlightSelectedProj,
     displayStoredProjects,
     addNewProject,
     cancelProjectCreation,
@@ -357,6 +380,7 @@ const controller = (() => {
       // otherwise, add the appropriate div
       let list = JSON.parse(localStorage.getItem('allTasks'))
       list = list.customProjects
+      // if no custom projects exist, tell uer to create one
       if (list.length === 0) {
         const div = document.createElement('div')
         div.classList.add('projectAddPopup')
@@ -369,6 +393,7 @@ const controller = (() => {
         buttonC.innerText = 'Cancel'
         div.appendChild(buttonC)
         cancelTaskToProjectHandler(buttonC)
+        // else display list of custom projects
       } else {
         const div = document.createElement('div')
         div.classList.add('projectAddPopup')
@@ -400,6 +425,7 @@ const controller = (() => {
   }
 
   const pageLoad = () => {
+    DOM.highlightSelectedProj('allTasks')
     const taskStorage = JSON.parse(localStorage.getItem('allTasks'))
     if (taskStorage == null) {
       return
