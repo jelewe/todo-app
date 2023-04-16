@@ -229,6 +229,7 @@ h3 {
     display: flex;
     flex-direction: column;
     position: relative;
+    height: 100%;
 }
 
 #mainContent button {
@@ -334,7 +335,8 @@ h3 {
 
     .formList {
         width: 100%;
-        height: 90%;
+        height: 100%;
+        background: var(--maincolor);
     }
 
     .divCard {
