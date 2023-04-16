@@ -13,23 +13,35 @@ body {
     color: #212427;
 }
 
-
-
 button {
     font-family: 'Manrope', sans-serif;
-    background: var(--maincolor);
-    border-radius: 5px;
-    border: 3px var(--mainaccent) solid;
     padding-left: 0.75rem;
     padding-right: 0.75rem;
     margin: 0.5rem;
+    border-radius: 5px;
 }
 
 button:hover {
     cursor: pointer;
+    transition: 0.07ms;
+}
+
+.projectsDiv > button {
+    background: none;
+    border: none;
+}
+
+
+
+
+.projectList > button {
+    background: var(--maincolor);
+    border: 3px var(--mainaccent) solid;
+}
+
+.projectList > button:hover {
     background: var(--mainaccent);
     border: 3px var(--maincolor) solid;
-    transition: 0.07ms;
 }
 
 #content {
@@ -157,6 +169,10 @@ h3 {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    width: 100%;
+    margin: 0;
+    font-weight: 400;
+    font-size: 1rem;
 }
 
 .projectsDiv {
@@ -171,9 +187,9 @@ h3 {
     padding-right: 0.3rem;
 }
 
-.projectsDiv .project:hover {
+.projectsDiv > .project:hover {
     cursor: pointer;
-    background: rgb(255, 218, 185, 0.6);
+    background: rgb(255, 218, 185, 0.6) !important;
     transition: 0.07ms;
     border-radius: 4px;
 }

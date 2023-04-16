@@ -101,17 +101,17 @@ const DOM = (() => {
 
   const addProjectToList = (project) => {
     const parentDiv = document.querySelector('.projectsDiv')
-    const childDiv = document.createElement('div')
-    childDiv.classList.add('project')
-    childDiv.setAttribute('project-type', project.name)
-    childDiv.innerText = project.name
+    const child = document.createElement('button')
+    child.classList.add('project')
+    child.setAttribute('project-type', project.name)
+    child.innerText = project.name
     const img = document.createElement('img')
     img.classList.add('projectTrash')
     img.src = 'imgs/trash.svg'
-    childDiv.append(img)
+    child.append(img)
     img.addEventListener('click', (e) => deleteProject(e, img))
-    childDiv.addEventListener('click', () => displaySelectedProject(childDiv))
-    parentDiv.appendChild(childDiv)
+    child.addEventListener('click', () => displaySelectedProject(child))
+    parentDiv.appendChild(child)
     cancelProjectCreation()
   }
 
@@ -123,8 +123,8 @@ const DOM = (() => {
         projDivs[i].style.backgroundColor = 'peachpuff'
         projDivs[i].style.fontWeight = '700'
       } else {
-        projDivs[i].style.backgroundColor = ''
-        projDivs[i].style.fontWeight = ''
+        projDivs[i].style.backgroundColor = 'var(--secondcolor)'
+        projDivs[i].style.fontWeight = '400'
       }
     }
   }
