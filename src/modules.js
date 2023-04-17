@@ -48,21 +48,29 @@ const DOM = (() => {
     let img = document.createElement('img')
     img.classList.add('trash')
     img.src = 'imgs/trash.svg'
+    img.alt = 'delete'
+    img.setAttribute('role', 'button')
     div.appendChild(img)
     controller.createTrashEventHandler(img)
     img = document.createElement('img')
     img.classList.add('check')
     img.src = 'imgs/check.svg'
+    img.alt = 'mark as completed'
+    img.setAttribute('role', 'button')
     div.appendChild(img)
     controller.createTextStrike(img)
     img = document.createElement('img')
     img.classList.add('plus')
     img.src = 'imgs/plus.svg'
+    img.alt = 'add to project'
+    img.setAttribute('role', 'button')
     div.appendChild(img)
     controller.createAddToProject(img)
     img = document.createElement('img')
     img.classList.add('edit')
     img.src = 'imgs/pencil.svg'
+    img.alt = 'edit'
+    img.setAttribute('role', 'button')
     div.appendChild(img)
     controller.editTask(img)
     displayArea.appendChild(div)
@@ -108,6 +116,8 @@ const DOM = (() => {
     const img = document.createElement('img')
     img.classList.add('projectTrash')
     img.src = 'imgs/trash.svg'
+    img.alt = 'delete'
+    img.setAttribute('role', 'button')
     child.append(img)
     img.addEventListener('click', (e) => deleteProject(e, img))
     child.addEventListener('click', () => displaySelectedProject(child))
