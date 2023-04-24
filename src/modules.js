@@ -41,38 +41,63 @@ const DOM = (() => {
     } else {
       div.style.textDecorationLine = 'line-through'
     };
-    div.innerText = `${task.title}
+    // create textDiv for grid display
+    const textDiv = document.createElement('div')
+    textDiv.classList.add('textDiv')
+    textDiv.innerText = `${task.title}
         Note: ${task.notes}
-        Due by ${task.dueDate}
+        Due: ${task.dueDate}
         ${task.priority} priority`
+    div.appendChild(textDiv)
+    // create button div
+    const btnDiv = document.createElement('div')
+    btnDiv.classList.add('btnDiv')
+    div.appendChild(btnDiv)
+    // create buttons and append to btnDiv
+    // trash button
+    let btn = document.createElement('button')
+    btn.classList.add('trash')
     let img = document.createElement('img')
-    img.classList.add('trash')
     img.src = 'imgs/trash.svg'
     img.alt = 'delete'
-    img.setAttribute('role', 'button')
-    div.appendChild(img)
-    controller.createTrashEventHandler(img)
+    btn.appendChild(img)
+    btnDiv.appendChild(btn)
+    btn.addEventListener('click', function () {
+      controller.createTrashEventHandler(btnDiv)
+    })
+    // check button
+    btn = document.createElement('button')
+    btn.classList.add('check')
     img = document.createElement('img')
-    img.classList.add('check')
     img.src = 'imgs/check.svg'
     img.alt = 'mark as completed'
-    img.setAttribute('role', 'button')
-    div.appendChild(img)
-    controller.createTextStrike(img)
+    btn.appendChild(img)
+    btnDiv.appendChild(btn)
+    btn.addEventListener('click', function () {
+      controller.createTextStrike(btnDiv)
+    })
+    // add to project button
+    btn = document.createElement('button')
+    btn.classList.add('add')
     img = document.createElement('img')
-    img.classList.add('plus')
     img.src = 'imgs/plus.svg'
     img.alt = 'add to project'
-    img.setAttribute('role', 'button')
-    div.appendChild(img)
-    controller.createAddToProject(img)
+    btn.appendChild(img)
+    btnDiv.appendChild(btn)
+    btn.addEventListener('click', function () {
+      controller.createAddToProject(btnDiv)
+    })
+    // edit button
+    btn = document.createElement('button')
+    btn.classList.add('edit')
     img = document.createElement('img')
-    img.classList.add('edit')
     img.src = 'imgs/pencil.svg'
     img.alt = 'edit'
-    img.setAttribute('role', 'button')
-    div.appendChild(img)
-    controller.editTask(img)
+    btn.appendChild(img)
+    btnDiv.appendChild(btn)
+    btn.addEventListener('click', function () {
+      controller.editTask(btnDiv)
+    })
     displayArea.appendChild(div)
   }
 
@@ -272,15 +297,13 @@ const controller = (() => {
     localStorage.setItem('allTasks', JSON.stringify(dataModel.allTasks))
   }
 
-  const createTrashEventHandler = (img) => {
-    img.onclick = (e) => {
-      const index = img.parentElement.getAttribute('data-index')
-      const main = document.querySelector('#main')
-      main.removeChild(img.parentElement)
-      dataModel.allTasks.tasks.splice(index, 1)
-      updateTaskIndex()
-      updateCardIndex()
-    }
+  const createTrashEventHandler = (btn) => {
+    const index = btn.parentElement.getAttribute('data-index')
+    const main = document.querySelector('#main')
+    main.removeChild(btn.parentElement)
+    dataModel.allTasks.tasks.splice(index, 1)
+    updateTaskIndex()
+    updateCardIndex()
   }
 
   const updateTaskIndex = () => {
@@ -298,21 +321,18 @@ const controller = (() => {
     })
   }
 
-  const createTextStrike = (img) => {
-    img.onclick = (e) => {
-      const card = img.parentElement
-      const index = img.parentElement.getAttribute('data-index')
-      const o = dataModel.allTasks.tasks[index]
-      if (card.style.textDecorationLine == 'none') {
-        card.style.textDecorationLine = 'line-through'
-        o.strike = 'strike'
-      } else {
-        card.style.textDecorationLine = 'none'
-        o.strike = 'none'
-      };
-
-      localStorage.setItem('allTasks', JSON.stringify(dataModel.allTasks))
-    }
+  const createTextStrike = (btn) => {
+    const parent = btn.parentElement
+    const index = parent.getAttribute('data-index')
+    const o = dataModel.allTasks.tasks[index]
+    if (parent.style.textDecorationLine === 'none') {
+      parent.style.textDecorationLine = 'line-through'
+      o.strike = 'strike'
+    } else {
+      parent.style.textDecorationLine = 'none'
+      o.strike = 'none'
+    };
+    localStorage.setItem('allTasks', JSON.stringify(dataModel.allTasks))
   }
 
   const saveTaskToProject = (img, buttonS, sel) => {
